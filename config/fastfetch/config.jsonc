@@ -1,0 +1,25 @@
+// Estilo ufetch: logo Gentoo de puntos, claves en mayuscula y en magenta.
+// Los colores son los de la terminal (paleta del rice andrea).
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/fastfetch/gentoo.txt",
+    "color": { "1": "magenta" },
+    "padding": { "left": 2, "right": 4 }
+  },
+  "display": {
+    "separator": "",
+    "key": { "width": 12 },
+    "color": { "keys": "bold_magenta" }
+  },
+  "modules": [
+    { "type": "title", "color": { "user": "bold_magenta", "at": "bold_magenta", "host": "bold_magenta" } },
+    { "type": "os",       "key": "OS:",       "format": "{name}" },
+    { "type": "kernel",   "key": "KERNEL:",   "format": "{sysname} {release}" },
+    { "type": "uptime",   "key": "UPTIME:" },
+    { "type": "packages", "key": "PACKAGES:", "format": "{all}" },
+    { "type": "shell",    "key": "SHELL:",    "format": "{pretty-name}" },
+    { "type": "wm",       "key": "WM:",       "format": "{pretty-name}" }
+  ]
+}
