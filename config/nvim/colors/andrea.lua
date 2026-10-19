@@ -1,4 +1,4 @@
--- andrea -- la paleta del rice andrea (Gruvbox Material sobre #09090F).
+-- andrea -- la paleta del rice andrea (Gruvbox Material sobre #1D2021).
 --
 -- Mismos grupos que colors/mono.lua; cambia solo la paleta. Los colores
 -- base son los de kitty (~/.config/kitty/themes/andrea.conf), y la
@@ -15,9 +15,9 @@
 -- init.lua lo elige cuando ~/.config/bspwm/.rice dice "andrea".
 
 local p = {
-	bg      = "#09090F",
-	bg_dim  = "#111116", -- flotantes, statusline
-	bg_sel  = "#1a191c", -- cursorline
+	bg      = "#1D2021",
+	bg_dim  = "#141617", -- flotantes (gruvbox-material hard)
+	bg_sel  = "#282828", -- cursorline
 	bg_hi   = "#32302f", -- seleccion, item activo del menu
 	border  = "#d4be98", -- contornos: el blanco de la terminal (color7)
 

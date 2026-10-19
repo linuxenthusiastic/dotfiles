@@ -15,8 +15,8 @@ local c = {
 
 -- Con el esquema andrea (rice andrea), la misma barra con su paleta.
 local andrea = {
-	bg      = "#09090F",
-	bg_dim  = "#111116",
+	bg      = "#1D2021",
+	bg_dim  = "#282828",
 	bg_hi   = "#32302f",
 	gray_d  = "#7c6f64",
 	gray_l  = "#c5b18d",
