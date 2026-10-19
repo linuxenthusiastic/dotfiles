@@ -13,7 +13,7 @@ Based on [gh0stzk/dotfiles](https://github.com/gh0stzk/dotfiles) (GPL-3.0).
 | `config/nvim`, `config/kitty`, `config/alacritty`, `config/Thunar`, `config/fontconfig` | `~/.config/` |
 | `config/xfce4/xfconf/.../thunar.xml` | `~/.config/xfce4/xfconf/xfce-perchannel-xml/` |
 | `home/Andrea-Material` | `~/.themes/` |
-| `home/.xinitrc` | `~/.xinitrc` |
+| `home/.xinitrc`, `home/.zshrc` | `~/` |
 
 Fonts, emoji and icon/cursor themes: see [FONTS.md](FONTS.md).
 
