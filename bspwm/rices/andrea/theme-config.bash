@@ -106,5 +106,5 @@ geany_theme="z0mbi3-Gruvbox"
 ENGINE="Default"
 
 CUSTOM_DIR="/path/to/your/wallpapers/directory"
-DEFAULT_WALL="/home/alone/Downloads/thumb-1920-1209089.jpg"
+DEFAULT_WALL="$HOME/.config/bspwm/rices/andrea/kame-house.jpg"
 ANIMATED_WALL="/home/alone/Downloads/gojo-hollow-purple-jujutsu-kaisen-moewalls-com.mp4"
