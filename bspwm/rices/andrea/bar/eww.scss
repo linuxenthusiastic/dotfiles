@@ -1,0 +1,193 @@
+// Colors (Gruvbox Material, fondo oscuro) //
+$bg: #09090F;
+$bg0h: #09090F;
+$bg1: #32302f;
+$bg2: #45403d;
+$fg: #d4be98;
+$yellow: #d8a657;
+$aqua: #89b482;
+
+// Global //
+* {
+  all: unset;
+  font-family: "JetBrainsMono NF", "Noto Sans CJK JP", "Apple Color Emoji", "Noto Color Emoji";
+  color: $fg;
+}
+
+tooltip {
+  background-color: $bg;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  color: $fg;
+  font-weight: Bold;
+  font-size: 0.8rem;
+}
+
+//----- Main Bar widget -----//
+
+.allbars {
+  margin: 6px 12px 0 12px;
+}
+
+.mainbars {
+  background-color: $bg;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  padding: 3px 10px;
+}
+
+.icons {
+  background-repeat: no-repeat;
+  background-size: 20px;
+  min-height: 20px;
+  min-width: 20px;
+}
+
+.icon-power {
+  background-repeat: no-repeat;
+  background-size: 16px;
+  min-height: 16px;
+  min-width: 16px;
+}
+
+.infotext {
+  background-color: $bg1;
+  border-radius: 16px;
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.infotext-pac {
+  background-color: $yellow;
+  color: $bg;
+  border-radius: 16px;
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.emoji-icon {
+  font-family: "Apple Color Emoji";
+  font-size: 16px;
+  min-width: 20px;
+}
+
+//----- Workspaces -----//
+
+.ws {
+  font-style: italic;
+  font-family: "Noto Sans CJK JP", "JetBrainsMono NF";
+  font-size: 13px;
+  padding: 0 5px;
+  color: #4a4a58;
+}
+
+.ws-occupied {
+  font-style: italic;
+  color: #8a8a9c;
+}
+
+.ws-focused {
+  font-style: italic;
+  color: $fg;
+  font-weight: bold;
+}
+
+.app-emoji {
+  font-family: "Apple Color Emoji";
+  font-size: 16px;
+  min-width: 20px;
+}
+
+//----- Music -----//
+
+.album_art {
+  background-repeat: no-repeat;
+  background-size: 24px;
+  min-height: 24px;
+  min-width: 24px;
+  border-radius: 6px;
+}
+
+.song-info {
+  min-width: 140px;
+}
+
+.song {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.artist {
+  font-size: 10px;
+  font-weight: bold;
+  color: $aqua;
+}
+
+.player-toggle {
+  font-family: "Apple Color Emoji";
+  font-size: 18px;
+  color: $yellow;
+}
+
+.player-previous,
+.player-next {
+  font-family: "Apple Color Emoji";
+  font-size: 16px;
+}
+
+//----- Clock -----//
+
+.time {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 10px;
+  font-weight: bold;
+  color: $aqua;
+}
+
+.weathericon {
+  font-family: "Font Awesome 6 Free Solid";
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.weathertemp {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+//----- Audio popup -----//
+
+.audio-box {
+  background-color: $bg;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+}
+
+.speaker_icon {
+  font-family: "Apple Color Emoji";
+  font-size: 40px;
+  min-height: 48px;
+  min-width: 48px;
+  margin: 0 9px 0 0;
+  border-radius: 10px;
+}
+
+.speaker_bar scale trough highlight {
+  background-color: $aqua;
+  border-radius: 24px;
+}
+
+.speaker_bar scale trough {
+  background-color: $bg1;
+  border: 2px solid $bg2;
+  border-radius: 24px;
+  min-height: 10px;
+  min-width: 120px;
+}

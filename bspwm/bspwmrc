@@ -1,0 +1,100 @@
+#!/bin/sh
+# =============================================================
+#  ██████╗ ███████╗██████╗ ██╗    ██╗███╗   ███╗██████╗  ██████╗
+#  ██╔══██╗██╔════╝██╔══██╗██║    ██║████╗ ████║██╔══██╗██╔════╝
+#  ██████╔╝███████╗██████╔╝██║ █╗ ██║██╔████╔██║██████╔╝██║
+#  ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║██╔══██╗██║
+#  ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║██║  ██║╚██████╗
+#  ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
+# Author:  gh0stzk
+# Repo:    https://github.com/gh0stzk/dotfiles
+# Date:    24.04.2025 20:37:31
+# Copyright (C) 2021-2026 gh0stzk <z0mbi3.zk@protonmail.com>
+# =============================================================
+
+# Set environment variables
+export PATH="$HOME/.config/bspwm/bin:$PATH"
+export XDG_CURRENT_DESKTOP='bspwm'
+## Fix java applications
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+## Fix xdg-desktop-portal: al arrancar con startx, systemd --user no hereda
+## DISPLAY/XAUTHORITY y el backend GTK muere con "cannot open display",
+## rompiendo los dialogos de subir/descargar archivos en los navegadores.
+dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP
+systemctl --user reset-failed xdg-desktop-portal-gtk.service 2>/dev/null
+systemctl --user restart xdg-desktop-portal-gtk.service 2>/dev/null
+
+#  ╦ ╦╔═╗╦═╗╦╔═╔═╗╔═╗╔═╗╔═╗╔═╗╔═╗
+#  ║║║║ ║╠╦╝╠╩╗╚═╗╠═╝╠═╣║  ║╣ ╚═╗
+#  ╚╩╝╚═╝╩╚═╩ ╩╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
+
+MonitorSetup
+
+#  ╔╗ ╔═╗╔═╗╦ ╦╔╦╗  ╔═╗╔═╗╔╗╔╔═╗╦╔═╗
+#  ╠╩╗╚═╗╠═╝║║║║║║  ║  ║ ║║║║╠╣ ║║ ╦
+#  ╚═╝╚═╝╩  ╚╩╝╩ ╩  ╚═╝╚═╝╝╚╝╚  ╩╚═╝
+
+bspc config external_rules_command "${HOME}"/.config/bspwm/bin/ExternalRules
+
+bspc config window_gap 6
+bspc config split_ratio               0.51
+bspc config single_monocle            true
+
+bspc config automatic_scheme          longest_side
+bspc config initial_polarity          second_child
+bspc config removal_adjustment        true
+
+bspc config focus_follows_pointer     true
+bspc config pointer_follows_focus     false
+bspc config pointer_follows_monitor   true
+bspc config pointer_motion_interval   7
+bspc config pointer_modifier          mod4
+bspc config pointer_action1           move
+bspc config pointer_action2           resize_side
+bspc config pointer_action3           resize_corner
+
+#  ╔═╗╦ ╦╔╦╗╔═╗╔═╗╔╦╗╔═╗╦═╗╔╦╗
+#  ╠═╣║ ║ ║ ║ ║╚═╗ ║ ╠═╣╠╦╝ ║
+#  ╩ ╩╚═╝ ╩ ╚═╝╚═╝ ╩ ╩ ╩╩╚═ ╩
+
+run() {
+  if ! pidof -q "$1"; then
+    "$@" &
+  fi
+}
+
+# Set system vars for polybar
+"$HOME"/.config/bspwm/bin/SetSysVars
+
+# Launch sxhkd from $HOME. Otherwise every hotkey inherits whatever
+# directory sxhkd was started in (often this config folder).
+if ! pidof -q sxhkd; then
+  ( cd "${HOME}" && sxhkd -c "${HOME}"/.config/bspwm/config/sxhkdrc ) &
+fi
+
+# Launch picom
+run picom --config "${HOME}"/.config/bspwm/config/picom.conf
+# Wait (max ~3s) until picom is compositing, so eww gets a transparent (ARGB) window
+for _ in $(seq 30); do
+  xdotool search --classname '^picom$' >/dev/null 2>&1 && break
+  sleep 0.1
+done
+
+# Load current theme
+"${HOME}"/.config/bspwm/bin/Theme.sh
+
+# Launch xsettingsd
+run xsettingsd --config="${HOME}"/.config/bspwm/config/xsettingsd >/dev/null 2>&1
+
+# Launch eww daemon
+pidof -q eww || { eww -c "${HOME}"/.config/bspwm/eww daemon & }
+
+# Launch clipboard daemon
+run clipcatd
+
+# Launch polkit
+run lxpolkit
+
+# Start one time message
+[ ! -f "$HOME/.config/bspwm/config/.first_run_done" ] && alacritty --hold -e sh -c 'cat "$HOME/.config/bspwm/config/FirstMessage.txt"; sleep 0.1' && touch "$HOME/.config/bspwm/config/.first_run_done"

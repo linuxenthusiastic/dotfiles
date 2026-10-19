@@ -1,0 +1,57 @@
+#!/bin/sh
+# =============================================================
+# VertWorkspace <n>
+#
+# Imprime el glifo del escritorio <n> con su color segun estado.
+# polybar dibuja UNA sola fila de modulos por barra, asi que la barra
+# vertical es una pila de barras de un modulo cada una; este script
+# alimenta el slot de un unico escritorio.
+#
+# Estados de `bspc subscribe report`:
+#   O/F/U = enfocado (ocupado/libre/urgente)
+#   o/f/u = no enfocado
+# =============================================================
+
+n=${1:-1}
+case "$n" in
+    [1-6]) ;;
+    *) n=1 ;;
+esac
+
+icon_1='󰫮'; icon_2='󰫯'; icon_3='󰫰'
+icon_4='󰫱'; icon_5='󰫲'; icon_6='󰫳'
+eval "icon=\$icon_$n"
+
+c_focused='#f8f9fa'
+c_occupied='#adb5bd'
+c_empty='#4a5057'
+c_urgent='#ffffff'
+
+render() {
+    case "$1" in
+        O|F) printf '%%{F%s}%s%%{F-}\n' "$c_focused"  "$icon" ;;
+        U|u) printf '%%{F%s}%s%%{F-}\n' "$c_urgent"   "$icon" ;;
+        o)   printf '%%{F%s}%s%%{F-}\n' "$c_occupied" "$icon" ;;
+        f)   printf '%%{F%s}%s%%{F-}\n' "$c_empty"    "$icon" ;;
+        *)   printf '\n' ;;
+    esac
+}
+
+# `bspc subscribe report` emite el estado actual apenas arranca, asi que
+# el slot se pinta sin esperar al primer cambio de escritorio.
+bspc subscribe report | while IFS= read -r report; do
+    i=0
+    state=''
+    old_ifs=$IFS
+    IFS=':'
+    for field in $report; do
+        case "$field" in
+            [OFUofu]*)
+                i=$((i + 1))
+                [ "$i" -eq "$n" ] && state=${field%"${field#?}"}
+                ;;
+        esac
+    done
+    IFS=$old_ifs
+    render "$state"
+done

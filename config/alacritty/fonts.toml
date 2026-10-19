@@ -1,0 +1,22 @@
+[font]
+size = 15
+
+builtin_box_drawing = true
+
+[font.normal]
+family = "IosevkaTerm Nerd Font Propo"
+style = "Regular"
+
+[font.bold]
+family = "IosevkaTerm Nerd Font Propo"
+style = "Bold"
+
+[font.italic]
+family = "IosevkaTerm Nerd Font Propo"
+style = "Italic"
+
+[font.bold_italic]
+family = "IosevkaTerm Nerd Font Propo"
+style = "Italic"
+
+

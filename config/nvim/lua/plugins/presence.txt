@@ -1,0 +1,19 @@
+return {
+    {
+        "andweeb/presence.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("presence").setup({
+                auto_update        = true,
+                main_image         = "file",
+                neovim_image_text  = "neovim",
+                enable_line_number = false,
+                show_time          = true,
+                editing_text       = "Editando %s",
+                file_explorer_text = "Navegando archivos",
+                reading_text       = "Leyendo %s",
+                workspace_text     = "Working on %s",
+            })
+        end,
+    },
+}
