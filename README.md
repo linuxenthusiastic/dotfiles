@@ -26,3 +26,10 @@ Wallpaper videos, other rices, backups, and secrets. The weather widget reads
 
 `.zshrc` needs: `zsh-autosuggestions`, `zsh-syntax-highlighting`,
 `zsh-history-substring-search`, `fzf-tab-git` (AUR), `eza`, `bat`, `fastfetch`.
+
+## Background switch
+
+`BgSwitch [dark|material|toggle|status]` swaps the rice background between
+`#09090F` (near-black) and `#282828` (original Gruvbox Material) across bspwm,
+eww, kitty, alacritty, nvim, rofi, dunst and the GTK theme, then reloads.
+Running GTK apps need a restart to pick up the new color.

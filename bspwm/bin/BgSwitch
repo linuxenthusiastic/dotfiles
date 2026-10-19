@@ -1,0 +1,53 @@
+#!/bin/sh
+# BgSwitch - switch the Andrea rice background between two colors.
+#   dark      -> #09090F (near-black, blue/purple tint)
+#   material  -> #282828 (original Gruvbox Material, medium)
+# Usage: BgSwitch [dark|material|toggle|status]
+
+DARK="#09090F"
+MATERIAL="#282828"
+CONFIG="$HOME/.config"
+THEME_CONFIG="$CONFIG/bspwm/rices/andrea/theme-config.bash"
+
+current() {
+    bg=$(sed -n 's/^bg="\(#[0-9A-Fa-f]*\)".*/\1/p' "$THEME_CONFIG" | head -n1)
+    case "$(printf '%s' "$bg" | tr 'a-f' 'A-F')" in
+        "$(printf '%s' "$MATERIAL" | tr 'a-f' 'A-F')") echo material ;;
+        *) echo dark ;;
+    esac
+}
+
+targets() {
+    # Explicit paths only: other rices and unrelated theme parts also use #282828.
+    theme="$HOME/.themes/Andrea-Material"
+    for path in "$CONFIG/nvim" "$CONFIG/alacritty" \
+                "$CONFIG/kitty/current-theme.conf" "$CONFIG/kitty/themes/andrea.conf" \
+                "$CONFIG/bspwm/bin" "$CONFIG/bspwm/eww" "$CONFIG/bspwm/config" \
+                "$CONFIG/bspwm/rices/andrea" \
+                "$theme/assets" "$theme/gtk-2.0" "$theme/gtk-3.20" "$theme/index.theme"; do
+        [ -e "$path" ] && rg -l -i --hidden -F "$1" "$path" \
+            -g '!*.bak*' -g '!BgSwitch' -g '!sed.sh' -g '!unsed.sh' 2>/dev/null
+    done
+}
+
+swap() {
+    from=$1 to=$2
+    targets "$from" | while IFS= read -r f; do
+        sed -i "s/$from/$to/gI" "$f"
+    done
+}
+
+reload() {
+    pkill -USR1 -x kitty 2>/dev/null || true
+    SoftReload >/dev/null 2>&1 || true
+}
+
+mode=${1:-toggle}
+[ "$mode" = toggle ] && { [ "$(current)" = dark ] && mode=material || mode=dark; }
+
+case "$mode" in
+    status)   current ;;
+    dark)     swap "$MATERIAL" "$DARK";     reload; echo "background: dark ($DARK)" ;;
+    material) swap "$DARK" "$MATERIAL";     reload; echo "background: material ($MATERIAL)" ;;
+    *) echo "Usage: BgSwitch [dark|material|toggle|status]" >&2; exit 1 ;;
+esac
