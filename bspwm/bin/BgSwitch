@@ -1,11 +1,11 @@
 #!/bin/sh
 # BgSwitch - switch the Andrea rice background between two colors.
 #   dark      -> #09090F (near-black, blue/purple tint)
-#   material  -> #282828 (original Gruvbox Material, medium)
+#   material  -> #1D2021 (Gruvbox Material hard)
 # Usage: BgSwitch [dark|material|toggle|status]
 
 DARK="#09090F"
-MATERIAL="#282828"
+MATERIAL="#1D2021"
 CONFIG="$HOME/.config"
 THEME_CONFIG="$CONFIG/bspwm/rices/andrea/theme-config.bash"
 
